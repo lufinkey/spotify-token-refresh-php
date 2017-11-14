@@ -23,6 +23,7 @@ if(isset($_POST["refresh_token"]))
 	$response = curl_exec($ch);
 	curl_close($ch);
 	
+	header('Content-Type: application/json');
 	echo $response;
 }
 
