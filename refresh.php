@@ -19,7 +19,7 @@ if(isset($_POST["refresh_token"]))
 	]);
 	curl_setopt($ch, CURLOPT_URL, SPOTIFY_URL."/api/token");
 	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($query));
 	$response = curl_exec($ch);
 	curl_close($ch);
 	
