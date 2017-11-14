@@ -2,14 +2,13 @@
 
 require_once(__DIR__."/appinfo.php");
 
-if(isset($_POST["code"]))
+if(isset($_POST["refresh_token"]))
 {
-	$auth_code = $_POST["code"];
+	$refresh_token = openssl_decrypt(base64_decode($_POST["refresh_token"]), ENCRYPTION_METHOD, ENCRYPTION_PASSWORD);
 	
 	$query = [
-		"grant_type" => "authorization_code",
-		"redirect_uri" => CLIENT_CALLBACK_URL,
-		"code" => $auth_code
+		"grant_type" => "refresh_token",
+		"refresh_token" => $refresh_token
 	];
 	
 	$ch = curl_init();
@@ -23,11 +22,6 @@ if(isset($_POST["code"]))
 	$response = curl_exec($ch);
 	curl_close($ch);
 	
-	if(!empty($response))
-	{
-		$response_json = json_decode($response);
-		$response_json->refresh_token = base64_encode(openssl_encrypt($response_json->refresh_token, ENCRYPTION_METHOD, ENCRYPTION_PASSWORD));
-		echo json_encode($response_json);
-	}
+	echo $response;
 }
 
