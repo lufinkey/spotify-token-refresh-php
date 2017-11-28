@@ -18,7 +18,7 @@ if(isset($_POST["code"]))
 		"Content-Type: application/x-www-form-urlencoded",
 		"Authorization: $AUTH_HEADER"
 	]);
-	curl_setopt($ch, CURLOPT_URL, SPOTIFY_URL."/api/token");
+	curl_setopt($ch, CURLOPT_URL, SPOTIFY_URL);
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($query));
 	$response = curl_exec($ch);

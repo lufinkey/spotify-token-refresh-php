@@ -6,6 +6,6 @@ const CLIENT_CALLBACK_URL = "spotifyexampleapp://callback";
 const ENCRYPTION_PASSWORD = "bigassbuttdicks";
 const ENCRYPTION_METHOD = "aes-256-cbc";
 
-const SPOTIFY_URL = "https://accounts.spotify.com";
+const SPOTIFY_URL = "https://accounts.spotify.com/api/token";
 $AUTH_HEADER = "Basic ".base64_encode(CLIENT_ID.":".CLIENT_SECRET);
 
