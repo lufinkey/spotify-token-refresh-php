@@ -27,8 +27,8 @@ if(isset($_POST["code"]))
 	if(!empty($response))
 	{
 		header('Content-Type: application/json');
-		$response_json = json_decode($response);
-		$response_json->refresh_token = base64_encode(openssl_encrypt($response_json->refresh_token, ENCRYPTION_METHOD, ENCRYPTION_PASSWORD));
+		$response_json = json_decode($response, true);
+		$response_json['refresh_token'] = base64_encode(openssl_encrypt($response_json['refresh_token'], ENCRYPTION_METHOD, ENCRYPTION_PASSWORD));
 		echo json_encode($response_json);
 	}
 }
