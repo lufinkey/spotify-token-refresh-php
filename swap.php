@@ -30,6 +30,7 @@ if(isset($_POST["code"])) {
 		echo json_encode($response_json);
 	} else {
 		http_response_code(500);
+		header('Content-Type: application/json');
 		echo json_encode([
 			"error" => "unknown",
 			"error_description" => "An empty response was recieved"
@@ -37,6 +38,7 @@ if(isset($_POST["code"])) {
         }
 } else {
 	http_response_code(400);
+	header('Content-Type: application/json');
 	echo json_encode([
 		"error" => "invalid_request",
 		"error_description" => "missing field for code"
