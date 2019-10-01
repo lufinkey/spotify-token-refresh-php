@@ -2,8 +2,7 @@
 
 require_once(__DIR__."/appinfo.php");
 
-if(isset($_POST["refresh_token"]))
-{
+if(isset($_POST["refresh_token"])) {
 	$refresh_token = openssl_decrypt(base64_decode($_POST["refresh_token"]), ENCRYPTION_METHOD, ENCRYPTION_PASSWORD);
 	
 	$query = [
@@ -21,9 +20,18 @@ if(isset($_POST["refresh_token"]))
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($query));
 	$response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	curl_close($ch);
 	
+	http_response_code($http_code);
 	header('Content-Type: application/json');
 	echo $response;
+} else {
+        http_response_code(400);
+        header('Content-Type: application/json');
+        echo json_encode([
+                "error" => "invalid_request",
+                "error_description" => "missing field for refresh_token"
+        ]);
 }
 
